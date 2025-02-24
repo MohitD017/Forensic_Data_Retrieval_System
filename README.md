@@ -4,6 +4,23 @@
 
 This project demonstrates a simple Retrieval-Augmented Generation (RAG) system for cyber forensics using Ollama and LangChain. It allows you to ask questions about a document related to cyber forensics, and the system will provide answers based on the information in the document.
 
+## Prerequisites
+
+Before running this project, ensure you have the following:
+
+* **Ollama:** Download and install from https://ollama.com/download (approx. 4.5GB fro the Ollama setup and 100 MB for the Ollama server). The models will consume additional disk space depending on the models you download (e.g., the `llama2` model is around 4 GB).
+* **Python:** Version 3.7 or higher (approx. 100 MB)
+* **pip:** Python package installer
+* **Disk space:** Approximately 5-7 GB for the Ollama server, dependencies, and your knowledge base documents, plus additional space for the Ollama models you download.
+
+**Important Note:**
+
+* **Model Location:** Ensure that the downloaded Ollama model is located in the same directory as your code or provide the full path to the model in the `OllamaEmbeddings` and `OllamaLLM` instantiations. This is because the `langchain-ollama` library, by default, looks for the model in the current working directory. If the model is in a different location, you'll need to specify the full path to avoid errors. For example:
+
+  ```python
+  embedding = OllamaEmbeddings(model="phi", base_url="http://localhost:11434", model_path="/path/to/your/model")
+  llm = OllamaLLM(model="phi", base_url="http://localhost:11434", model_path="/path/to/your/model")
+
 ## What is RAG?
 
 Retrieval-Augmented Generation (RAG) is a technique that combines information retrieval with text generation to provide more accurate, factual, and contextually relevant responses. It works by retrieving relevant information from a knowledge base and then using a language model to generate a response based on that information. This allows language models to handle complex questions and access domain-specific knowledge.
@@ -13,9 +30,9 @@ Retrieval-Augmented Generation (RAG) is a technique that combines information re
 This project uses the following components:
 
 * **Ollama:** An open-source large language model (LLM) that can be run locally.
-* **LangChain:** A framework for developing applications powered by language models.
-* **FAISS:** A library for efficient similarity search and clustering of vectors.
-* **Tkinter:** A standard Python GUI library used to create the user interface.
+* **LangChain:** A framework for developing applications powered by language models. (approx. 50 MB)
+* **FAISS:** A library for efficient similarity search and clustering of vectors. (approx. 20 MB)
+* **Tkinter:** A standard Python GUI library used to create the user interface. (included with Python)
 
 The system works as follows:
 
