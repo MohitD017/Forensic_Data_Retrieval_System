@@ -1,15 +1,12 @@
 # RAG for Cyber Forensics
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 This project demonstrates a simple Retrieval-Augmented Generation (RAG) system for cyber forensics using Ollama and LangChain. It allows you to ask questions about a document related to cyber forensics, and the system will provide answers based on the information in the document.
 
 ## What is RAG?
 
-Retrieval-Augmented Generation (RAG) is a technique that combines information retrieval with text generation to provide more accurate and contextually relevant responses. It works by:
-
-1.  **Retrieving** relevant information from a knowledge base (e.g., documents, databases) based on a user's query.
-2.  **Generating** a response using the retrieved information and a language model.
-
-This approach allows language models to access and process external knowledge, making them more useful for tasks that require specific information or domain expertise.
+Retrieval-Augmented Generation (RAG) is a technique that combines information retrieval with text generation to provide more accurate, factual, and contextually relevant responses. It works by retrieving relevant information from a knowledge base and then using a language model to generate a response based on that information. This allows language models to handle complex questions and access domain-specific knowledge.
 
 ## How this project works
 
@@ -32,11 +29,11 @@ The system works as follows:
 
 The code is structured as follows:
 
-* **Document loading and processing:** The cyber forensics document is loaded using `TextLoader`, split into chunks using `CharacterTextSplitter`, and embedded using `OllamaEmbeddings`.
+* **Document loading and processing:** The cyber forensics document is loaded using a custom loader that supports both `.txt` and `.pdf` files. It is then split into chunks using `CharacterTextSplitter` and embedded using `OllamaEmbeddings`.
 * **Vectorstore creation:** A FAISS vectorstore is created using the embeddings.
 * **Conversational Chain:** A `ConversationalRetrievalChain` is set up to handle multi-turn conversations and maintain context.
-* **Tkinter GUI:** A GUI is created using Tkinter, with a text area to display the conversation, an entry field for user input, and a button to send questions.
-* **Error handling:** A `try-except` block handles potential errors, such as questions outside the knowledge base.
+* **Tkinter GUI:** A GUI is created using Tkinter, with a text area to display the conversation, an entry field for user input, and a button to send questions. The GUI also includes text formatting for a better user experience.
+* **Error handling:** A `try-except` block handles potential errors, such as questions outside the knowledge base, and provides informative messages.
 
 ## Why this approach is better
 
@@ -45,21 +42,24 @@ This RAG-based approach offers several advantages over traditional methods:
 * **Contextualized responses:** The system provides answers grounded in the provided cyber forensics document, ensuring relevance and accuracy.
 * **Interactive interface:** The Tkinter GUI allows for a user-friendly chat-like interaction.
 * **Transparency:** The source documents used to generate the answers are displayed, providing traceability and allowing for verification.
-* **Efficiency:** FAISS enables fast similarity search for retrieving relevant information.
-* **Local execution:** Ollama allows for local execution of the language model, enhancing privacy and reducing reliance on external APIs.
-* **Document format support:** Currently, the LLM supports `.txt` as well as `.pdf` files as knowledge base.
+* **Efficiency:** FAISS enables fast similarity search for retrieving relevant information, which is crucial for real-time or near real-time applications.
+* **Local execution:** Ollama allows for local execution of the language model, enhancing privacy and reducing reliance on external APIs. This is particularly important in cyber forensics investigations where data sensitivity is paramount.
+* **Document format support:** The knowledge base supports both `.txt` and `.pdf` files, which are common formats for cyber forensics documentation.
+
+## System Workflow
+
+The following flowchart illustrates the workflow of the RAG system:![Flowchart](flowchart.png)
 
 ## Setup and Usage
 
-1.  **Install dependencies:**
+1.  **Install Ollama:**
 
-    ```bash
-    pip install langchain langchain_community langchain_ollama ollama faiss-cpu tkinter
-    ```
+    * Download and install Ollama from the official website: https://ollama.com/download
+    * Start the Ollama server: `ollama serve`
 
 2.  **Download an Ollama model:**
 
-    I've used the `phi` model in this code as it is an efficient model, but you can use any model of your choice. Refer to the official Ollama website (https://ollama.com/search) to find available models.
+    I've used the `phi` model in this code, but you can use any model of your choice. Refer to the official Ollama website (https://ollama.com/search) to find available models.
 
     To download a model, use the following command:
 
@@ -69,20 +69,26 @@ This RAG-based approach offers several advantages over traditional methods:
 
     (Replace `<model_name>` with the name of the model you want to use.)
 
-3.  **Replace `"D:\\RAG\\sample.txt"` with the path to your cyber forensics document.**
+3.  **Install Python dependencies:**
 
-4.  **Update the code to use the chosen model:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+4.  **Replace `"D:\\RAG\\sample.txt"` with the path to your cyber forensics document.**
+
+5.  **Update the code to use the chosen model:**
 
     * In the `OllamaEmbeddings` instantiation: `embedding = OllamaEmbeddings(model="<model_name>")`
     * In the `OllamaLLM` instantiation: `llm=OllamaLLM(model="<model_name>")`
 
-5.  **Run the code:**
+6.  **Run the code:**
 
     ```bash
     python rag.py
     ```
 
-6.  **Type your questions in the GUI window.**
+7.  **Type your questions in the GUI window.**
 
 ## Features
 
@@ -91,10 +97,11 @@ This RAG-based approach offers several advantages over traditional methods:
 * **Response time:** Displays the time taken to generate the answer.
 * **Source documents:** Shows the source document(s) from which the answer was extracted.
 * **Error handling:** Provides informative messages for questions outside the knowledge base.
+* **Text formatting:** The GUI uses different colors and fonts to distinguish between questions, answers, and source documents.
 
 ## Contributing
 
-Contributions are welcome! Feel free to open issues or pull requests for bug fixes, improvements, or new features.
+Contributions are welcome! Please see `CONTRIBUTING.md` for guidelines.
 
 ## License
 
