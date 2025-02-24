@@ -118,7 +118,7 @@ The following flowchart illustrates the workflow of the RAG system:![Flowchart](
 
 ## Contributing
 
-Contributions are welcome! Please see `CONTRIBUTING.md` for guidelines.
+Contributions are welcome! Feel free to open issues or pull requests for bug fixes, improvements, or new features.
 
 ## License
 
