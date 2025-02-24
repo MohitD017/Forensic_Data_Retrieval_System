@@ -1,0 +1,7 @@
+langchain
+langchain-community
+langchain-ollama
+ollama
+faiss-cpu
+PyMuPDF
+tkinter
